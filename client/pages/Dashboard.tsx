@@ -536,7 +536,7 @@ export default function Dashboard() {
 
             {/* Shared Tab */}
             {activeTab === "shared" && (
-              <div className="space-y-6">
+              <div className="space-y-6 animate-slideInUp">
                 <SharedFilesList
                   files={files}
                   loading={loading}
@@ -551,27 +551,33 @@ export default function Dashboard() {
 
             {/* Users Tab */}
             {activeTab === "users" && (
-              <UserManagement
+              <div className="animate-slideInUp">
+                <UserManagement
                 users={users}
                 theme={theme}
                 onAddUser={handleAddUser}
                 onDeleteUser={handleDeleteUser}
                 onUpdateUserRole={handleUpdateUserRole}
               />
+              </div>
             )}
 
             {/* Theme Tab */}
             {activeTab === "theme" && (
-              <ThemeSelector theme={theme} onThemeChange={handleThemeChange} />
+              <div className="animate-slideInUp">
+                <ThemeSelector theme={theme} onThemeChange={handleThemeChange} />
+              </div>
             )}
 
             {/* Admin Tab */}
             {activeTab === "admin" && (
-              <AdminPanel
+              <div className="animate-slideInUp">
+                <AdminPanel
                 theme={theme}
                 userRole={userRole}
                 userId={userId || ""}
               />
+              </div>
             )}
           </div>
         </div>
