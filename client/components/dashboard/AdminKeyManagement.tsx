@@ -121,16 +121,18 @@ export function AdminKeyManagement({
         expiresAt = expires.toISOString();
       }
 
-      await setDoc(doc(db, "premiumKeys", newKey), {
+      // Sanitize and validate data before writing to Firestore
+      const keyData: PremiumKeyData = {
         key: newKey,
         status: "unused",
         type: formData.type,
-        maxEmojis: formData.maxEmojis,
+        maxEmojis: Math.max(1, Math.min(formData.maxEmojis, 1000000)), // Clamp between 1 and 1M
         isActive: true,
-        used: false,
         createdAt: now.toISOString(),
-        createdBy: userId,
-      } as PremiumKeyData);
+        createdBy: sanitizeInput(userId),
+      };
+
+      await setDoc(doc(db, "premiumKeys", newKey), keyData);
 
       setShowGenerateForm(false);
       setFormData({ type: "monthly", maxEmojis: 1000 });
