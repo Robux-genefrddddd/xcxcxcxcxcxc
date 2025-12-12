@@ -81,16 +81,11 @@ export function createServer() {
 
   app.get("/api/demo", apiLimiter, handleDemo);
 
-  // Serve static files and SPA fallback
-  app.use(express.static("dist/spa"));
-
-  // SPA fallback - serve index.html for all non-API routes
-  app.get("*", (req, res) => {
-    // Don't serve HTML for API requests
-    if (req.path.startsWith("/api/")) {
-      return res.status(404).json({ error: "Not found" });
-    }
-    res.sendFile("dist/spa/index.html", { root: "." });
+  // Note: In development, Vite's dev server handles static files and SPA routing.
+  // In production, node-build.ts handles static files and SPA fallback.
+  // We only return API 404s here for actual API requests.
+  app.use("/api", (_req, res) => {
+    res.status(404).json({ error: "API endpoint not found" });
   });
 
   return app;
