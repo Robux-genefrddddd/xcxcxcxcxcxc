@@ -4,10 +4,6 @@ import {
   Copy,
   Trash2,
   Check,
-  AlertTriangle,
-  Lock,
-  Crown,
-  Zap,
 } from "lucide-react";
 import { getThemeColors } from "@/lib/theme-colors";
 import {
