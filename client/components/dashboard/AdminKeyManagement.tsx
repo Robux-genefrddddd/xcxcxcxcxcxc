@@ -295,7 +295,7 @@ export function AdminKeyManagement({
         </div>
       ) : keys.length === 0 ? (
         <div
-          className="p-12 rounded-xl border text-center"
+          className="p-12 rounded-lg border text-center"
           style={{
             backgroundColor: colors.card,
             borderColor: colors.border,
