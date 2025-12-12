@@ -402,14 +402,14 @@ export function AdminGlobalStats({ theme, userRole }: AdminGlobalStatsProps) {
 
           {/* Recent Activity Bar Chart */}
           <div
-            className="p-4 rounded-lg border"
+            className="p-6 rounded-xl border transition-all hover:shadow-lg"
             style={{
               backgroundColor: colors.card,
               borderColor: colors.border,
             }}
           >
-            <h4 className="font-semibold mb-4" style={{ color: colors.text }}>
-              Recent Activity (Last 7 Days)
+            <h4 className="font-semibold text-lg mb-4 flex items-center gap-2" style={{ color: colors.text }}>
+              <span>📈</span> Recent Activity (Last 7 Days)
             </h4>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart
