@@ -77,48 +77,32 @@ export function AdminPanel({ theme, userRole, userId }: AdminPanelProps) {
 
       {/* Navigation Tabs */}
       <div
-        className="border rounded-2xl overflow-hidden"
+        className="border rounded-lg overflow-hidden"
         style={{
           backgroundColor: colors.card,
           borderColor: colors.border,
         }}
       >
         <div
-          className="flex gap-1 p-3 flex-wrap"
+          className="flex gap-1 p-2 flex-wrap"
           style={{
             backgroundColor: colors.sidebar,
             borderBottomColor: colors.border,
           }}
         >
-          {visibleTabs.map((tab, idx) => (
+          {visibleTabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className="flex items-center gap-2 px-4 py-3 rounded-xl font-medium text-sm transition-all duration-300 relative group"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm transition-colors"
               style={{
                 backgroundColor:
                   activeTab === tab.id ? colors.accent : "transparent",
                 color: activeTab === tab.id ? "#FFFFFF" : colors.textSecondary,
               }}
             >
-              <div
-                className="transition-transform duration-300"
-                style={{
-                  transform:
-                    activeTab === tab.id
-                      ? "scale(1.2) rotate(10deg)"
-                      : "scale(1)",
-                }}
-              >
-                {tab.icon}
-              </div>
+              {tab.icon}
               <span className="hidden sm:inline">{tab.label}</span>
-              {activeTab === tab.id && (
-                <div
-                  className="absolute bottom-0 left-0 right-0 h-0.5"
-                  style={{ backgroundColor: colors.accent }}
-                ></div>
-              )}
             </button>
           ))}
         </div>
