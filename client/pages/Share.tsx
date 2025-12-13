@@ -107,14 +107,10 @@ export default function Share() {
       const fileData = fileSnap.data();
 
       if (fileData?.storagePath) {
-        const response = await fetch("/api/files/download", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ storagePath: fileData.storagePath }),
-        });
+        const storageRef = ref(storage, fileData.storagePath);
+        const downloadUrl = await getDownloadURL(storageRef);
 
+        const response = await fetch(downloadUrl);
         if (!response.ok) {
           throw new Error("Failed to download file");
         }
