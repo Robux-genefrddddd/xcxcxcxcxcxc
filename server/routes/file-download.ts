@@ -1,6 +1,4 @@
 import { Router, Request, Response } from "express";
-import { storage } from "@/lib/firebase";
-import { ref, getBytes } from "firebase/storage";
 
 const router = Router();
 
@@ -12,25 +10,28 @@ router.post("/download", async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Storage path is required" });
     }
 
+    const firebaseStorageBucket = "keysystem-d0b86-8df89.firebasestorage.app";
+    const encodedPath = encodeURIComponent(storagePath);
+    const fileUrl = `https://${firebaseStorageBucket}/v0/b/${firebaseStorageBucket}/o/${encodedPath}?alt=media`;
+
     const MAX_RETRIES = 3;
     const INITIAL_DELAY = 1000;
 
-    const downloadWithRetry = async (retryCount = 0): Promise<Uint8Array> => {
+    const downloadWithRetry = async (retryCount = 0): Promise<Response> => {
       try {
-        const fileRef = ref(storage, storagePath);
-        const maxDownloadBytes = 500 * 1024 * 1024;
-        const bytes = await getBytes(fileRef, maxDownloadBytes);
-        return bytes;
-      } catch (storageError) {
+        const response = await fetch(fileUrl);
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        return response;
+      } catch (error) {
         const errorMsg =
-          storageError instanceof Error
-            ? storageError.message
-            : String(storageError);
+          error instanceof Error ? error.message : String(error);
 
         if (
-          (errorMsg.includes("retry-limit-exceeded") ||
-            errorMsg.includes("network") ||
-            errorMsg.includes("timeout")) &&
+          (errorMsg.includes("network") || errorMsg.includes("timeout")) &&
           retryCount < MAX_RETRIES
         ) {
           const delay = INITIAL_DELAY * Math.pow(2, retryCount);
@@ -38,25 +39,22 @@ router.post("/download", async (req: Request, res: Response) => {
           return downloadWithRetry(retryCount + 1);
         }
 
-        throw storageError;
+        throw error;
       }
     };
 
-    const bytes = await downloadWithRetry();
+    const response = await downloadWithRetry();
+    const buffer = await response.arrayBuffer();
+
     res.set("Content-Type", "application/octet-stream");
-    res.send(Buffer.from(bytes));
+    res.set("Content-Length", String(buffer.byteLength));
+    res.send(Buffer.from(buffer));
   } catch (error) {
     console.error("File download error:", error);
     const errorMsg =
       error instanceof Error ? error.message : "Unknown error";
 
-    if (errorMsg.includes("auth/unauthenticated")) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-    if (errorMsg.includes("permission-denied")) {
-      return res.status(403).json({ error: "Access denied" });
-    }
-    if (errorMsg.includes("object-not-found")) {
+    if (errorMsg.includes("404") || errorMsg.includes("not-found")) {
       return res.status(404).json({ error: "File not found" });
     }
 
