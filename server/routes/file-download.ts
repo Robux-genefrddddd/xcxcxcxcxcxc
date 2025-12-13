@@ -27,8 +27,7 @@ router.post("/download", async (req: Request, res: Response) => {
 
         return response;
       } catch (error) {
-        const errorMsg =
-          error instanceof Error ? error.message : String(error);
+        const errorMsg = error instanceof Error ? error.message : String(error);
 
         if (
           (errorMsg.includes("network") || errorMsg.includes("timeout")) &&
@@ -51,8 +50,7 @@ router.post("/download", async (req: Request, res: Response) => {
     res.send(Buffer.from(buffer));
   } catch (error) {
     console.error("File download error:", error);
-    const errorMsg =
-      error instanceof Error ? error.message : "Unknown error";
+    const errorMsg = error instanceof Error ? error.message : "Unknown error";
 
     if (errorMsg.includes("404") || errorMsg.includes("not-found")) {
       return res.status(404).json({ error: "File not found" });
