@@ -66,24 +66,17 @@ export function FilesList({
       const fileRef = ref(storage, file.storagePath);
       const downloadUrl = await getDownloadURL(fileRef);
 
-      const response = await fetch(downloadUrl);
-      if (!response.ok) {
-        throw new Error(`Download failed: ${response.statusText}`);
-      }
-
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.href = url;
+      link.href = downloadUrl;
       link.download = file.name || "download";
       link.style.display = "none";
+      link.target = "_blank";
 
       document.body.appendChild(link);
       link.click();
 
       setTimeout(() => {
         document.body.removeChild(link);
-        URL.revokeObjectURL(url);
       }, 100);
     } catch (error) {
       console.error("Error downloading file:", error);
