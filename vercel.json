@@ -5,11 +5,5 @@
   "installCommand": "pnpm install",
   "env": {
     "NODE_ENV": "production"
-  },
-  "functions": {
-    "api/**/*.mjs": {
-      "maxDuration": 30,
-      "memory": 1024
-    }
   }
 }
