@@ -29,7 +29,7 @@ const getNavItems = (userRole?: UserRole) => {
       label: "Files",
       icon: null,
       imageUrl:
-        "https://cdn-icons-png.freepik.com/256/7795/7795785.png?semt=ais_white_label",
+        "https://png.pngtree.com/png-vector/20190321/ourmid/pngtree-vector-folder-icon-png-image_855010.jpg",
     },
     {
       id: "shared",
