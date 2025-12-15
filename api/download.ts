@@ -65,7 +65,7 @@ export default async function handler(
       const response = await fetch(downloadUrl);
 
       if (!response.ok) {
-        return res.status(response.status).json({
+        return sendJson(res, response.status, {
           error: `Firebase Storage error: ${response.statusText}`,
         });
       }
