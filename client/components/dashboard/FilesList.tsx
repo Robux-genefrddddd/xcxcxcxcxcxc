@@ -482,6 +482,20 @@ export function FilesList({
         theme={theme}
         loading={deletingId === deleteFileId}
       />
+
+      {/* Bulk Delete Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={deleteConfirmBulk}
+        onClose={() => setDeleteConfirmBulk(false)}
+        onConfirm={handleBulkDelete}
+        title="Delete Files?"
+        description={`Are you sure you want to delete ${selectedFileIds.size} file(s)? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        isDangerous={true}
+        theme={theme}
+        loading={false}
+      />
     </div>
   );
 }
