@@ -502,7 +502,7 @@ export function FilesList({
         cancelText="Cancel"
         isDangerous={true}
         theme={theme}
-        loading={false}
+        loading={deletingId === "bulk"}
       />
     </div>
   );
