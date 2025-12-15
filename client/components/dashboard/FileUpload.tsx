@@ -74,6 +74,7 @@ export function FileUpload({
         onChange={handleChange}
         disabled={uploading}
         className="hidden"
+        multiple={isPremium}
       />
 
       <div className="flex flex-col items-center gap-5">
