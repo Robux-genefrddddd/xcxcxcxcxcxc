@@ -181,23 +181,58 @@ export function FilesList({
         }}
       >
         <div className="flex items-center justify-between">
-          <h2
-            className="text-sm font-semibold uppercase tracking-wider"
-            style={{ color: colors.text }}
-          >
-            Files
-            {files.length > 0 && (
-              <span
-                className="ml-3 px-2 py-1 rounded text-xs font-medium inline-block"
+          <div className="flex items-center gap-3">
+            {isPremium && files.length > 0 && (
+              <input
+                type="checkbox"
+                checked={selectedFileIds.size === files.length && files.length > 0}
+                onChange={toggleSelectAll}
+                className="w-4 h-4 cursor-pointer"
+              />
+            )}
+            <h2
+              className="text-sm font-semibold uppercase tracking-wider"
+              style={{ color: colors.text }}
+            >
+              Files
+              {files.length > 0 && (
+                <span
+                  className="ml-3 px-2 py-1 rounded text-xs font-medium inline-block"
+                  style={{
+                    backgroundColor: colors.accentLight,
+                    color: colors.primary,
+                  }}
+                >
+                  {files.length}
+                </span>
+              )}
+            </h2>
+          </div>
+
+          {isPremium && selectedFileIds.size > 0 && (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleBulkShare}
+                className="px-3 py-1.5 rounded text-xs font-medium transition-all"
                 style={{
                   backgroundColor: colors.accentLight,
                   color: colors.primary,
                 }}
               >
-                {files.length}
-              </span>
-            )}
-          </h2>
+                Share ({selectedFileIds.size})
+              </button>
+              <button
+                onClick={() => setDeleteConfirmBulk(true)}
+                className="px-3 py-1.5 rounded text-xs font-medium transition-all"
+                style={{
+                  backgroundColor: "rgba(239, 68, 68, 0.15)",
+                  color: "#EF4444",
+                }}
+              >
+                Delete ({selectedFileIds.size})
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
