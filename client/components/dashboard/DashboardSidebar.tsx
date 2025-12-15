@@ -71,13 +71,13 @@ export function DashboardSidebar({
 }: DashboardSidebarProps) {
   const colors = getThemeColors(theme);
   const storageUsedMB = userPlan ? userPlan.storageUsed / (1024 * 1024) : 0;
-  const storagePercentage = userPlan
+  const storagePercentage = userPlan && userPlan.storageLimit !== Infinity
     ? (userPlan.storageUsed / userPlan.storageLimit) * 100
     : 0;
 
   const getStorageLimitDisplay = () => {
-    if (!userPlan) return { text: "1 GB", showLimit: true };
-    if (userPlan.storageLimit === Infinity)
+    if (!userPlan) return { text: "1 T", showLimit: true };
+    if (userPlan.type === "premium")
       return { text: "Unlimited", showLimit: false };
     const limitTB = userPlan.storageLimit / (1024 * 1024 * 1024 * 1024);
     if (limitTB >= 1)
