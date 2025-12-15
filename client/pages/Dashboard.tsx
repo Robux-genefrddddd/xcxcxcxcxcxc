@@ -124,15 +124,24 @@ export default function Dashboard() {
 
         const savedTheme = localStorage.getItem("app-theme") || "dark";
         setTheme(savedTheme);
-        loadFiles();
-        loadUsers();
+        setupFilesListener();
+        setupUsersListener();
       } else {
         navigate("/login");
       }
       setIsAuthLoading(false);
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribe();
+      // Clean up listeners on unmount
+      if (filesUnsubscribeRef.current) {
+        filesUnsubscribeRef.current();
+      }
+      if (usersUnsubscribeRef.current) {
+        usersUnsubscribeRef.current();
+      }
+    };
   }, [navigate]);
 
   // ============= FILES MANAGEMENT =============
