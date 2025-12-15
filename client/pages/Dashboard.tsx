@@ -525,6 +525,7 @@ export default function Dashboard() {
                   uploading={uploading}
                   theme={theme}
                   maxFileSize={userPlan?.type === "premium" ? 800 : 300}
+                  isPremium={userPlan?.type === "premium"}
                 />
                 <FilesList
                   files={files}
