@@ -29,7 +29,7 @@ const getNavItems = (userRole?: UserRole) => {
       label: "Files",
       icon: null,
       imageUrl:
-        "https://png.pngtree.com/png-vector/20190321/ourmid/pngtree-vector-folder-icon-png-image_855010.jpg",
+        "https://i.ibb.co/1ft6PM7b/pngtree-vector-folder-icon-png-image-855010-removebg-preview.png",
     },
     {
       id: "shared",
