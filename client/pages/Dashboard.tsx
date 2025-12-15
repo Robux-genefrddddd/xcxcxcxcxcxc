@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 import { FileUpload } from "@/components/dashboard/FileUpload";
 import { FilesList } from "@/components/dashboard/FilesList";
 import { SharedFilesList } from "@/components/dashboard/SharedFilesList";
