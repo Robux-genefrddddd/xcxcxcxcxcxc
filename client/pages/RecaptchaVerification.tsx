@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Mail, Shield } from "lucide-react";
+import { Mail, CheckCircle2 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 declare global {
