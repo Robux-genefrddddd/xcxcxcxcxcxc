@@ -328,8 +328,6 @@ export default function Dashboard() {
       setUploadProgress(100);
       setUploadStage("complete");
       await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      loadFiles();
     } catch (error) {
       console.error("Error uploading file:", error);
       setUploadError("Upload failed. Please try again.");
