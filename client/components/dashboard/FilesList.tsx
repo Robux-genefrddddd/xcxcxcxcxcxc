@@ -46,6 +46,7 @@ export function FilesList({
   onShare,
   onDelete,
   onCopyShareLink,
+  isPremium = false,
 }: FilesListProps) {
   const colors = getThemeColors(theme);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -54,6 +55,8 @@ export function FilesList({
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [deleteFileId, setDeleteFileId] = useState<string | null>(null);
   const [deleteFileName, setDeleteFileName] = useState("");
+  const [selectedFileIds, setSelectedFileIds] = useState<Set<string>>(new Set());
+  const [deleteConfirmBulk, setDeleteConfirmBulk] = useState(false);
 
   const handleDownload = async (file: FileItem) => {
     if (!file.storagePath) {
