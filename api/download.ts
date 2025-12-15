@@ -10,7 +10,9 @@ function sendJson(res: ServerResponse, statusCode: number, data: unknown) {
   res.end(JSON.stringify(data));
 }
 
-async function parseRequestBody(req: IncomingMessage): Promise<Record<string, unknown>> {
+async function parseRequestBody(
+  req: IncomingMessage,
+): Promise<Record<string, unknown>> {
   return new Promise((resolve, reject) => {
     let body = "";
     req.on("data", (chunk) => {
@@ -29,7 +31,7 @@ async function parseRequestBody(req: IncomingMessage): Promise<Record<string, un
 
 export default async function handler(
   req: IncomingMessage,
-  res: ServerResponse
+  res: ServerResponse,
 ) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -47,7 +49,10 @@ export default async function handler(
 
   try {
     const body = await parseRequestBody(req);
-    const { storagePath, fileName } = body as { storagePath?: string; fileName?: string };
+    const { storagePath, fileName } = body as {
+      storagePath?: string;
+      fileName?: string;
+    };
 
     if (!storagePath) {
       return sendJson(res, 400, { error: "Storage path is required" });

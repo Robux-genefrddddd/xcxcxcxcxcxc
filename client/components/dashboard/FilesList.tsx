@@ -66,7 +66,8 @@ export function FilesList({
     if (!file.storagePath) {
       toast({
         title: "Error",
-        description: "File information not found. Please refresh and try again.",
+        description:
+          "File information not found. Please refresh and try again.",
       });
       return;
     }
@@ -120,7 +121,8 @@ export function FilesList({
         URL.revokeObjectURL(blobUrl);
       }, 100);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error occurred";
       console.error("Error downloading file:", error);
       toast({
         title: "Download Failed",
