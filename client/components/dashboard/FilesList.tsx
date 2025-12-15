@@ -150,11 +150,19 @@ export function FilesList({
   };
 
   const handleBulkDelete = async () => {
-    for (const fileId of selectedFileIds) {
-      await onDelete(fileId);
+    setDeletingId("bulk");
+    try {
+      const fileIdArray = Array.from(selectedFileIds);
+      for (const fileId of fileIdArray) {
+        await onDelete(fileId);
+      }
+    } catch (error) {
+      console.error("Error during bulk delete:", error);
+    } finally {
+      setSelectedFileIds(new Set());
+      setDeleteConfirmBulk(false);
+      setDeletingId(null);
     }
-    setSelectedFileIds(new Set());
-    setDeleteConfirmBulk(false);
   };
 
   const handleBulkShare = () => {
