@@ -188,14 +188,14 @@ export function AdminKeyManagement({
       {/* Generate Key Form */}
       {showGenerateForm && canCreateKeys(userRole) && (
         <div
-          className="p-6 rounded-lg border space-y-4"
+          className="p-3 rounded border space-y-3 bg-opacity-50"
           style={{
-            backgroundColor: colors.card,
+            backgroundColor: colors.sidebar,
             borderColor: colors.border,
           }}
         >
-          <h4 className="font-semibold text-lg" style={{ color: colors.text }}>
-            Generate New Premium Key
+          <h4 className="font-semibold text-sm" style={{ color: colors.text }}>
+            New Key
           </h4>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
