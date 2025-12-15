@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Trash2, Shield, Award, Zap, User } from "lucide-react";
+import { Trash2, Shield, Award, Zap, User, Search } from "lucide-react";
 import { getThemeColors } from "@/lib/theme-colors";
 import {
   collection,
