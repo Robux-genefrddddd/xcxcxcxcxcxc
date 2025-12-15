@@ -83,6 +83,8 @@ export default function Dashboard() {
     storageUsed: 0,
   });
   const [isAuthLoading, setIsAuthLoading] = useState(true);
+  const filesUnsubscribeRef = useRef<(() => void) | null>(null);
+  const usersUnsubscribeRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
